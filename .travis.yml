@@ -1,0 +1,13 @@
+---
+# whenever we work with docker we should have superuser permission
+# that is what sudo: required does.
+language: generic 
+sudo: required
+services:
+    - docker
+# step that occurs before test or deployment occurs
+before_install:
+    - docker build -t docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true docker-react npm run test
